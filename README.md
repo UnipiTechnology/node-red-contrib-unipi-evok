@@ -43,12 +43,12 @@ If a `token` is set in the configuration of EVOK, add it to the address: `ws://[
 Now only connect the *websocket input node* with the *Unipi input node* and/or the *Unipi output node* with the *websocket output node*. *Input* couple serves as a *data input (to Node-RED)* from the Unipi device and *output* couple serves as a *data output (from Node-RED)* to the Unipi device.
 
 #### Devices and circuits
-The device types are the types of EVOK 3: `ro` (relay), `di` (digital input), `do` (digital output), `ai`, `ao`, `led`, 1-Wire sensors (`temp`, `1wdevice`) and `data_point`. The circuit is written as in the web interface of EVOK (e.g. `1.01`) or as in the messages (e.g. `1_01`).
+The device types are the types of EVOK 3: `ro` (relay), `di` (digital input), `do` (digital output), `ai`, `ao`, `led`, 1-Wire sensors (`temp`, `1wdevice`), `data_point` and `register`. The `register` is the deprecated REGISTER of EVOK 3.1, its circuits are e.g. `1_100` or `1_100_inp` of an input register; use DATA_POINT with `datatype: uint16` in EVOK and `data_point` in the nodes. The circuit is written as in the web interface of EVOK (e.g. `1.01`) or as in the messages (e.g. `1_01`).
 
 An alias set in EVOK can be used in place of the circuit. It is written exactly as it was set in EVOK (e.g. `pump`). The *Unipi output v3* node needs also the device type of the aliased device, EVOK refuses an alias of another device type.
 
 #### Filter
-The command ***filter*** sets the device types whose changes EVOK sends: relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors and data points. The disabled filter, or the enabled filter without any checked type, restores the default filter of EVOK, which sends the changes of all devices.
+The command ***filter*** sets the device types whose changes EVOK sends: relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors, data points and registers. The disabled filter, or the enabled filter without any checked type, restores the default filter of EVOK, which sends the changes of all devices.
 
 #### List of the devices
 Connect the *Unipi devices v3* node to the *websocket input node* and send the command ***All*** by the *Unipi output v3* node. The node sends the list of the devices in `msg.payload`, e.g.:

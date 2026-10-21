@@ -33,6 +33,7 @@
             <option value="led">Led</option>
             <option value="1wire">1-Wire sensors</option>
             <option value="data_point">Data point</option>
+            <option value="register">Register</option>
         </select>
     </div>
 </script>
@@ -59,7 +60,7 @@
     <ul>
         <li><code>Name</code> - gives a name to the node and changes the label of the node.
         <p></p>
-        <li><code>Devices</code> - lists only the devices of the type, <i>All</i> lists every device of EVOK (also e.g. the watchdogs and the Modbus buses). <i>1-Wire sensors</i> are the temperature sensors (<i>temp</i>) and the other sensors (<i>1wdevice</i>).
+        <li><code>Devices</code> - lists only the devices of the type, <i>All</i> lists every device of EVOK (also e.g. the watchdogs and the Modbus buses). <i>1-Wire sensors</i> are the temperature sensors (<i>temp</i>) and the other sensors (<i>1wdevice</i>). The <i>Register</i> is the deprecated REGISTER of EVOK 3.1 (e.g. the circuits <i>1_100</i> or <i>1_100_inp</i> of an input register), use the DATA_POINT with <i>datatype: uint16</i> in EVOK and the <i>Data point</i> here.
     </ul>
     <p>The <i>circuit</i> of the listed device can be used in the <i>Circuits</i> of the <i>Unipi input v3</i> node, e.g. the circuit of a 1-Wire temperature sensor with the device <i>Temp</i>.</p>
 </script>

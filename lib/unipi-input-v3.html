@@ -70,6 +70,7 @@
             <option value="led">Led</option>
             <option value="temp">Temp</option>
             <option value="data_point">Data point</option>
+            <option value="register">Register</option>
             <option value="1wdevice">1-Wire Device</option>
 
         </select>
@@ -131,7 +132,7 @@
             <p></p>
             <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. Write the <i>Alias</i> exactly as it was set in EVOK (e.g. <i>pump</i>). If the <i>Alias</i> is used then there is no need to set the couple <i>device + circuit</i> in the node (this option is automatically disabled).
             <p></p>
-            <li><code>Devices</code> - set the <i>device</i> as the first part of the couple <i>device + circuit</i>. The 1-Wire sensors are <i>Temp</i> (temperature sensors) and <i>1-Wire Device</i> (other sensors).
+            <li><code>Devices</code> - set the <i>device</i> as the first part of the couple <i>device + circuit</i>. The 1-Wire sensors are <i>Temp</i> (temperature sensors) and <i>1-Wire Device</i> (other sensors). The <i>Register</i> is the deprecated REGISTER of EVOK 3.1 (e.g. the circuits <i>1_100</i> or <i>1_100_inp</i> of an input register), use the DATA_POINT with <i>datatype: uint16</i> in EVOK and the <i>Data point</i> here.
             <p></p>
             <li><code>Circuits</code> - the <i>circuit</i> of the device choosen above follows here as the second part of the couple <i>device + circuit</i> (write e.g. <i>1.01</i>, <i>2_03</i> etc. or just copy the circuit from the web interface of EVOK).
             <p></p>

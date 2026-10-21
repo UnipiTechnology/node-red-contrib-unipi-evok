@@ -16,7 +16,8 @@
             analinFil: { value: "" },
             ledFil: { value: "" },
             sensorFil: { value: "" },
-            datapointFil: { value: "" }
+            datapointFil: { value: "" },
+            registerFil: { value: "" }
             },
         align: 'right',
         inputs: 1,
@@ -58,6 +59,8 @@ function showFil()
     $('#sensorFilLabel').show();
     $('#node-input-datapointFil').show();
     $('#datapointFilLabel').show();
+    $('#node-input-registerFil').show();
+    $('#registerFilLabel').show();
 }
 
 function hideFil()
@@ -78,6 +81,8 @@ function hideFil()
     $('#sensorFilLabel').hide();
     $('#node-input-datapointFil').hide();
     $('#datapointFilLabel').hide();
+    $('#node-input-registerFil').hide();
+    $('#registerFilLabel').hide();
 }
 
 function showSet()
@@ -226,6 +231,10 @@ function choose() {
         <label for="node-input-datapointFil" id="datapointFilLabel">Data point</label>
         <input type="checkbox" id="node-input-datapointFil" style="display:inline-block; width:auto; vertical-align:top;">
     </div> 
+    <div class="form-row">
+        <label for="node-input-registerFil" id="registerFilLabel">Register</label>
+        <input type="checkbox" id="node-input-registerFil" style="display:inline-block; width:auto; vertical-align:top;">
+    </div> 
     
 </script>
 
@@ -260,7 +269,7 @@ function choose() {
                     <p></p>
                     <li><i style="color:blue"> All</i> - the command is sent by any input message. Returns the message from the Unipi device with all couples <i>device + circuit</i> from the input websocket node.
                     <p></p>
-                    <li><i style="color:blue">Filter</i> - the command is sent by any input message. Once the filter is enabled - the message/s from the Unipi device with filtred <i>device/s</i> (relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors, data points) will be only recieved from the input websocket node.
+                    <li><i style="color:blue">Filter</i> - the command is sent by any input message. Once the filter is enabled - the message/s from the Unipi device with filtred <i>device/s</i> (relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors, data points, registers) will be only recieved from the input websocket node.
                         <ul>
                             <li><i>Enable filter</i> - The filter is enabled and the check boxes below are active.
                             <li><i>Disable filter</i> - The filter is disabled and the chech boxes are non active. 
