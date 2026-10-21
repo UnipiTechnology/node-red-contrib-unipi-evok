@@ -20,6 +20,7 @@ Once `@unipitechnology/node-red-contrib-unipi-evok` is installed into the Node-R
 
    - **Unipi input v3** node (`unipi-input-v3`) - primary a filter for the Unipi data (from the websocket). Helps to easily access the needed data and work with them through the flow/s.
    - **Unipi output v3** node (`unipi-output-v3`) - helps to see the ***all*** data by the request, ***filter*** the choosen data or to ***set*** the features *relay*, *digital output* and *led* -> to switch ON/OFF or set *analog output* to desired value.
+   - **Unipi devices v3** node (`unipi-devices-v3`) - lists the devices of the Unipi device with their circuits, aliases and the addresses of the 1-Wire sensors.
    - **Unipi input** and **Unipi output** nodes (`unipi-input`, `unipi-output`) - the original nodes for EVOK 2, they use the device names of EVOK 2 (`input`, `relay`). Use the v3 nodes with EVOK 3.
 
 #### Preparation
@@ -48,6 +49,15 @@ An alias set in EVOK can be used in place of the circuit. It is written exactly 
 
 #### Filter
 The command ***filter*** sets the device types whose changes EVOK sends: relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors and data points. The disabled filter, or the enabled filter without any checked type, restores the default filter of EVOK, which sends the changes of all devices.
+
+#### List of the devices
+Connect the *Unipi devices v3* node to the *websocket input node* and send the command ***All*** by the *Unipi output v3* node. The node sends the list of the devices in `msg.payload`, e.g.:
+
+```json
+[{"dev": "ro", "circuit": "1_01", "alias": "pump"}, {"dev": "temp", "circuit": "284E2025090000FF", "address": "28.4E2025090000.FF", "type": "DS18B20"}]
+```
+
+The list can be limited to a device type, e.g. to the 1-Wire sensors. The node sends a new list only when a device appears (e.g. a new 1-Wire sensor) or its alias changes. The circuit from the list is used in the *Circuits* of the *Unipi input v3* node.
 
 #### Errors
 EVOK replies to an invalid command (e.g. ***set*** of an unknown circuit or alias, or with the `read_token`) with `{"success": false, "errors": {...}}` only to the websocket which sent it. The *Unipi input v3* node reports such reply as an error, which can be handled by the `catch` node, and sends no message. Every *Unipi input v3* node connected to the websocket reports it.

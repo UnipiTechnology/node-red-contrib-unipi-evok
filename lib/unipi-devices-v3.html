@@ -1,0 +1,65 @@
+<script type="text/javascript">
+    RED.nodes.registerType('unipi-devices-v3', {
+        category: 'Unipi',
+        color: '#ffffff',
+        defaults: {
+            name: { value: "" },
+            devices: { value: "all", required: true }
+        },
+        align: 'left',
+        inputs: 1,
+        outputs: 1,
+        icon: "unipi_logo.png",
+        label: function () {
+            return this.name || "Unipi Devices";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="unipi-devices-v3">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-devices"><i class="fa fa-microchip"></i> Devices</label>
+        <select type="text" id="node-input-devices">
+            <option value="all">All</option>
+            <option value="ro">Relay</option>
+            <option value="di">Digital Input</option>
+            <option value="do">Digital output</option>
+            <option value="ai">Analog input</option>
+            <option value="ao">Analog output</option>
+            <option value="led">Led</option>
+            <option value="1wire">1-Wire sensors</option>
+            <option value="data_point">Data point</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="unipi-devices-v3">
+    <p><b>The Unipi devices</b> node lists the devices of the Unipi device, e.g. to find the circuits of the 1-Wire sensors.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt> payload <span class="property-type">string | object</span> </dt>
+        <dd> The original msg from the Unipi device (use WebSocket connection).</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt> payload <span class="property-type">array</span></dt>
+        <dd> The list of the devices, each as an object with <code>dev</code>, <code>circuit</code> and if the device has them <code>alias</code>, <code>address</code> (1-Wire temperature sensors) and <code>type</code> (1-Wire sensors). The list is sorted by <code>dev</code> and <code>circuit</code>.</dd>
+        <dt> topic <span class="property-type">string</span></dt>
+        <dd> <i>devices</i></dd>
+    </dl>
+    <h3>Details</h3>
+    <p>Connect the node to the websocket node of EVOK 3.1 (<i>connect to</i> ws://[the adress of the Unipi device]:8080/ws). To get the list of all devices send the command <i>All</i> by the <i>Unipi output v3</i> node to the same websocket.</p>
+    <p></p>
+    <p>The node collects the devices from all messages of EVOK and sends the list only when a device appears or its alias changes, not on a change of a value. A device found later (e.g. a new 1-Wire sensor) is added by its first message. The status of the node shows the number of the listed devices.</p>
+    <p></p>
+    <ul>
+        <li><code>Name</code> - gives a name to the node and changes the label of the node.
+        <p></p>
+        <li><code>Devices</code> - lists only the devices of the type, <i>All</i> lists every device of EVOK (also e.g. the watchdogs and the Modbus buses). <i>1-Wire sensors</i> are the temperature sensors (<i>temp</i>) and the other sensors (<i>1wdevice</i>).
+    </ul>
+    <p>The <i>circuit</i> of the listed device can be used in the <i>Circuits</i> of the <i>Unipi input v3</i> node, e.g. the circuit of a 1-Wire temperature sensor with the device <i>Temp</i>.</p>
+</script>

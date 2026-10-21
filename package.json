@@ -25,7 +25,8 @@
             "unipi-input": "lib/unipi-input.js",
             "unipi-output": "lib/unipi-output.js",
             "unipi-input-v3": "lib/unipi-input-v3.js",
-            "unipi-output-v3": "lib/unipi-output-v3.js"
+            "unipi-output-v3": "lib/unipi-output-v3.js",
+            "unipi-devices-v3": "lib/unipi-devices-v3.js"
         }
     },
     "repository": {
