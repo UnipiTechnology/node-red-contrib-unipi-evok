@@ -246,21 +246,21 @@ function choose() {
     </dl>
     <h3>Details</h3>
     <p></p>
-    <p>The EVOK utility in version 2.0 or higher is required to install in order to connect the Unipi device with the Node-RED. See <a href="https://github.com/UnipiTechnology/evok">Unipi GitHub</a> for more information.</p>
+    <p>The EVOK utility in version 3.1 is required to connect the Unipi device with the Node-RED, use the nodes <i>Unipi input</i> and <i>Unipi output</i> with EVOK 2. See <a href="https://github.com/UnipiTechnology/evok">Unipi GitHub</a> for more information.</p>
     <p></p>
-    <p>To connect - the Node-RED and the Unipi device - use the websocket node and choose type <i>connect to</i>. The format of the adress: ws://[the adress of the Unipi device]/ws.</p>
+    <p>To connect - the Node-RED and the Unipi device - use the websocket node and choose type <i>connect to</i>. The format of the adress: ws://[the adress of the Unipi device]:8080/ws, with a token of EVOK ws://[the adress of the Unipi device]:8080/ws?token=[token]. The WebSocket has to be enabled in the configuration of EVOK (<code>apis: websocket: enabled: true</code>), EVOK listens only on 127.0.0.1 by default.</p>
     <p></p>
     <h4><b>Setting the node</b></h4>
         
     <ul>
             <li><code>Name</code> - gives a name to the node and changes the label of the node. Set the name for user's better orientation (no other function is connected with the name changing).
             <p></p>
-            <li><code>Commmand</code> - has following options:
+            <li><code>Command</code> - has following options:
                 <ul>
                     <p></p>
                     <li><i style="color:blue"> All</i> - the command is sent by any input message. Returns the message from the Unipi device with all couples <i>device + circuit</i> from the input websocket node.
                     <p></p>
-                    <li><i style="color:blue">Filter</i> - the command is sent by any input message. Once the filter is enabled - the message/s from the Unipi device with filtred <i>device/s</i> will be only recieved from the input websocket node.
+                    <li><i style="color:blue">Filter</i> - the command is sent by any input message. Once the filter is enabled - the message/s from the Unipi device with filtred <i>device/s</i> (relays, digital inputs and outputs, analog inputs and outputs, leds, 1-Wire sensors, data points) will be only recieved from the input websocket node.
                         <ul>
                             <li><i>Enable filter</i> - The filter is enabled and the check boxes below are active.
                             <li><i>Disable filter</i> - The filter is disabled and the chech boxes are non active. 
@@ -270,7 +270,7 @@ function choose() {
                     <li><i style="color:blue">Set</i> - is the command to change the state of a device. The couple <i>device + circuit</i> has to be set - use <code>Devices</code> and <code>Circuits</code> or use the <code>Alias</code> field to identify the couple. The state or the value is set by the input <code>msg.payload</code>.
                         <p></p>
                         <ul>    
-                            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. If the <i>Alias</i> is used then it replaces the <i>circuit</i> (this option is automatically disabled), the <code>Devices</code> has to be set to the type of the aliased device.
+                            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. Write the <i>Alias</i> exactly as it was set in EVOK (e.g. <i>pump</i>). If the <i>Alias</i> is used then it replaces the <i>circuit</i> (this option is automatically disabled), the <code>Devices</code> has to be set to the type of the aliased device.
                                 <p></p>
                             <li><code>Devices</code> - has following options:
                                 <ul>
@@ -284,7 +284,7 @@ function choose() {
                                     <li><i>Analog output</i> - has the range <i>0-10</i>. The input message should be in the form: <i>number</i> in the range 0-10, <i>string</i> in the range "0"-"10". (More about the Analog output input is described in the section Special behaviour).
                                     <p></p>
                                 </ul>
-                            <li><code>Circuits</code> - the <i>circuit</i> of the device choosen above follows here as the second part of the couple <i>device + circuit</i> (write e.g. <i>1.01</i>, <i>UART 1 1.01</i> etc. or just copy the circuit from <i>Unipi Control Panel</i>).
+                            <li><code>Circuits</code> - the <i>circuit</i> of the device choosen above follows here as the second part of the couple <i>device + circuit</i> (write e.g. <i>1.01</i>, <i>2_03</i> etc. or just copy the circuit from the web interface of EVOK).
                         </ul>
                     <p></p>
                 </ul>
@@ -310,7 +310,7 @@ function choose() {
         </ul>
     <p>Details for the <i>Analog output</i> input msg:</p>
     <ul>
-        <li><i>Number</i> - in the interval <0;10> returns the input number, <0 returns 0, >10 returns 10.
+        <li><i>Number</i> - in the interval <0;10> returns the input number, <0 returns 0. EVOK refuses a number out of the range of the mode of the output (e.g. >10 V).
         <p></p>
         <li><i>String</i> - a general string msg returns no msg (e.g. "Hello"). Special forms which can be used are:
         <p></p>
@@ -321,9 +321,9 @@ function choose() {
     </ul>
     <p>Details for the field <i>Circuits</i>:</p>
     <ul>
-        <li> The input text could be taken from the EVOK utility. Copy the circuit (e.g. 1.01, UART 1 2.01 etc.) and paste.
-        <li> It's also possible to copy the <i>circuit</i> from the <code>msg</code> (the form is e.g. 1_01 for <i>1.01</i>; UART_1_1_01 for <i>UART 1 1.01</i> etc.).
-        <li> Equivalent entries: 2.01 or 2_01; UART 2 2.08 or UART_2_2_08 etc.
+        <li> The input text could be taken from the EVOK utility. Copy the circuit (e.g. 1.01, 2.03 etc.) and paste.
+        <li> It's also possible to copy the <i>circuit</i> from the <code>msg</code> (the form is e.g. 1_01 for <i>1.01</i>).
+        <li> Equivalent entries: 2.01 or 2_01 etc.
     </ul>
     <h4><b>Info</b></h4>
     <p>The Unipi output node deletes the <code>msg._session</code>.</p>

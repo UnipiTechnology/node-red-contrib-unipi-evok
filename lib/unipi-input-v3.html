@@ -120,20 +120,20 @@
         <dd> The filtred data. </dd>
     </dl>
     <h3>Details</h3>
-    <p>The EVOK utility in version 2.0 or higher is required to install in order to connect the Unipi device with the Node-RED. See <a href="https://github.com/UnipiTechnology/evok">Unipi GitHub</a> for more information.</p>
+    <p>The EVOK utility in version 3.1 is required to connect the Unipi device with the Node-RED, use the nodes <i>Unipi input</i> and <i>Unipi output</i> with EVOK 2. See <a href="https://github.com/UnipiTechnology/evok">Unipi GitHub</a> for more information.</p>
     <p></p>
-    <p>To connect - the Node-RED and the Unipi device - use the websocket node and choose type <i>connect to</i>. The format of the adress: ws://[the adress of the Unipi device]/ws.</p>
+    <p>To connect - the Node-RED and the Unipi device - use the websocket node and choose type <i>connect to</i>. The format of the adress: ws://[the adress of the Unipi device]:8080/ws, with a token of EVOK ws://[the adress of the Unipi device]:8080/ws?token=[token]. The WebSocket has to be enabled in the configuration of EVOK (<code>apis: websocket: enabled: true</code>), EVOK listens only on 127.0.0.1 by default.</p>
     <p></p>
     <h4><b>Setting the node</b></h4>
     
     <ul>
             <li><code>Name</code> - gives a name to the node and changes the label of the node. Set the name for user's better orientation (no other function is connected with the name changing).
             <p></p>
-            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. If the <i>Alias</i> is used then there is no need to set the couple <i>device + circuit</i> in the node (this option is automatically disabled).
+            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. Write the <i>Alias</i> exactly as it was set in EVOK (e.g. <i>pump</i>). If the <i>Alias</i> is used then there is no need to set the couple <i>device + circuit</i> in the node (this option is automatically disabled).
             <p></p>
-            <li><code>Devices</code> - set the <i>device</i> as the first part of the couple <i>device + circuit</i>.
+            <li><code>Devices</code> - set the <i>device</i> as the first part of the couple <i>device + circuit</i>. The 1-Wire sensors are <i>Temp</i> (temperature sensors) and <i>1-Wire Device</i> (other sensors).
             <p></p>
-            <li><code>Circuits</code> - the <i>circuit</i> of the device choosen above follows here as the second part of the couple <i>device + circuit</i> (write e.g. <i>1.01</i>, <i>UART 1 1.01</i> etc. or just copy the circuit from <i>Unipi Control Panel</i>).
+            <li><code>Circuits</code> - the <i>circuit</i> of the device choosen above follows here as the second part of the couple <i>device + circuit</i> (write e.g. <i>1.01</i>, <i>2_03</i> etc. or just copy the circuit from the web interface of EVOK).
             <p></p>
             <li><code>Property</code> - leave empty to see the whole filtered object in the <code>msg.payload</code> (the relevant <i>device + circuit</i>) or write property (from the filtered object e.g. value). If written property exists then the <code>msg.payload</code> contains this property and the <code>msg.topic</code> contains property's name. 
             <p></p>
@@ -147,9 +147,9 @@
     <h4><b>Special behaviour</b></h4>
     <p>Details for the field <i>Circuits</i>:</p>
     <ul>
-        <li> The input text could be taken from the EVOK utility. Copy the circuit (e.g. 1.01, UART 1 2.01 etc.) and paste.
-        <li> It's also possible to copy the <i>circuit</i> from the <code>msg</code> (the form is e.g. 1_01 for <i>1.01</i>; UART_1_1_01 for <i>UART 1 1.01</i> etc.).
-        <li> Equivalent entries: 2.01 or 2_01; UART 2 2.08 or UART_2_2_08 etc.
+        <li> The input text could be taken from the EVOK utility. Copy the circuit (e.g. 1.01, 2.03 etc.) and paste.
+        <li> It's also possible to copy the <i>circuit</i> from the <code>msg</code> (the form is e.g. 1_01 for <i>1.01</i>).
+        <li> Equivalent entries: 2.01 or 2_01 etc.
     </ul>
 
 </script>
