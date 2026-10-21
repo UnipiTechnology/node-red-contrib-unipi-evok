@@ -6,7 +6,7 @@
             name: { value: "" },
             cmd: { value: "set" },
             alias: { value: "" },
-            devices: { value: "output", required: true },
+            devices: { value: "ro", required: true },
             circuits: { value: "1.01", required: true },
             enableFil: { value: "1", required: true },
             inputFil: { value: "" },
@@ -14,7 +14,9 @@
             digoutFil: { value: "" },
             analoutFil: { value: "" },
             analinFil: { value: "" },
-            ledFil: { value: "" }
+            ledFil: { value: "" },
+            sensorFil: { value: "" },
+            datapointFil: { value: "" }
             },
         align: 'right',
         inputs: 1,
@@ -52,6 +54,10 @@ function showFil()
     $('#analinFilLabel').show();
     $('#node-input-ledFil').show();
     $('#ledFilLabel').show();
+    $('#node-input-sensorFil').show();
+    $('#sensorFilLabel').show();
+    $('#node-input-datapointFil').show();
+    $('#datapointFilLabel').show();
 }
 
 function hideFil()
@@ -68,6 +74,10 @@ function hideFil()
     $('#analinFilLabel').hide();
     $('#node-input-ledFil').hide();
     $('#ledFilLabel').hide();
+    $('#node-input-sensorFil').hide();
+    $('#sensorFilLabel').hide();
+    $('#node-input-datapointFil').hide();
+    $('#datapointFilLabel').hide();
 }
 
 function showSet()
@@ -115,12 +125,10 @@ function choose() {
 
                 if(document.getElementById("node-input-alias").value.length > 0) 
                 {
-                    document.getElementById("node-input-devices").disabled = true;
                     document.getElementById("node-input-circuits").disabled = true;
                 }
                 else
                 {
-                    document.getElementById("node-input-devices").disabled = false;
                     document.getElementById("node-input-circuits").disabled = false;
                 }
             }
@@ -130,20 +138,17 @@ function choose() {
     function check() {
             if (document.getElementById("node-input-alias").value.length > 0) 
             {
-                document.getElementById("node-input-devices").disabled = true;
                 document.getElementById("node-input-circuits").disabled = true;
             }
     }
     function enable() {
         if (document.getElementById("node-input-alias").value.length == 1)
         {
-            document.getElementById("node-input-devices").disabled = false;
             document.getElementById("node-input-circuits").disabled = false;
         }
     }
     function disable() {
         if (document.getElementById("node-input-alias").value.length > 0) {
-            document.getElementById("node-input-devices").disabled = true;
             document.getElementById("node-input-circuits").disabled = true;
         }
     }
@@ -213,6 +218,14 @@ function choose() {
         <label for="node-input-ledFil" id="ledFilLabel">Led</label>
         <input type="checkbox" id="node-input-ledFil" style="display:inline-block; width:auto; vertical-align:top;">
     </div> 
+    <div class="form-row">
+        <label for="node-input-sensorFil" id="sensorFilLabel">1-Wire sensor</label>
+        <input type="checkbox" id="node-input-sensorFil" style="display:inline-block; width:auto; vertical-align:top;">
+    </div> 
+    <div class="form-row">
+        <label for="node-input-datapointFil" id="datapointFilLabel">Data point</label>
+        <input type="checkbox" id="node-input-datapointFil" style="display:inline-block; width:auto; vertical-align:top;">
+    </div> 
     
 </script>
 
@@ -251,12 +264,13 @@ function choose() {
                         <ul>
                             <li><i>Enable filter</i> - The filter is enabled and the check boxes below are active.
                             <li><i>Disable filter</i> - The filter is disabled and the chech boxes are non active. 
+                            <li>The enabled filter without any checked box acts as the disabled filter (Evok would stop all messages).
                         </ul> 
                     <p></p>
                     <li><i style="color:blue">Set</i> - is the command to change the state of a device. The couple <i>device + circuit</i> has to be set - use <code>Devices</code> and <code>Circuits</code> or use the <code>Alias</code> field to identify the couple. The state or the value is set by the input <code>msg.payload</code>.
                         <p></p>
                         <ul>    
-                            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. If the <i>Alias</i> is used then there is no need to set the couple <i>device + circuit</i> in the node (this option is automatically disabled).
+                            <li><code>Alias</code> - the EVOK utility allows to set an <i>Alias</i> to the specific couple - <i>device + circuit</i>. If the <i>Alias</i> is used then it replaces the <i>circuit</i> (this option is automatically disabled), the <code>Devices</code> has to be set to the type of the aliased device.
                                 <p></p>
                             <li><code>Devices</code> - has following options:
                                 <ul>
