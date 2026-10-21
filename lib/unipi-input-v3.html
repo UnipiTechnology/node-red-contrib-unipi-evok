@@ -145,6 +145,11 @@
             <p></p>
         </ul>
     <h4><b>Special behaviour</b></h4>
+    <p>Errors of EVOK:</p>
+    <ul>
+        <li> EVOK replies to an invalid command (e.g. <i>set</i> of an unknown circuit or alias) with <code>{"success": false, "errors": {...}}</code>. The node sends no message and reports the error, which can be handled by the <i>catch</i> node. Every <i>Unipi input v3</i> node connected to the websocket reports the error, EVOK does not tell the device of the error.
+        <li> A message which is not a valid JSON is reported the same way.
+    </ul>
     <p>Details for the field <i>Circuits</i>:</p>
     <ul>
         <li> The input text could be taken from the EVOK utility. Copy the circuit (e.g. 1.01, 2.03 etc.) and paste.
